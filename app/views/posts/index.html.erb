@@ -1,0 +1,17 @@
+
+<h2>
+    
+    My posts</h2>
+<ul>
+    <% @posts.each do |post| %>
+        <li>
+            <%= link_to post.title,post_path(post.id) %>
+            <%= link_to "[edit]", edit_post_path(post), class:"command" %>
+            <%= link_to "[×]",
+                post_path(post),
+                method: :delete,
+                class:"command",
+                data:{confirm: "Sure?"}%>
+        </li>
+    <% end %>
+</ul>

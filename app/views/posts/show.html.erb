@@ -1,0 +1,32 @@
+
+
+<h2><%= @post.title %></h2>
+<P><%= simple_format @post.body %></p>
+<!---simple_formatは改行-->
+
+<h3>Comments</h3>
+<% if @post.comments.any? %>
+<ul>
+    <% @post.comments.each do |comment| %>
+    <li>
+        <%= comment.body %>
+        <%= link_to "[×]",
+                # "/posts/#{@post.id}/comments/#{comment.id}",
+                post_comment_path(@post, comment),
+                method: :delete,
+                class:"command",
+                data:{confirm: "Sure?"}%>
+    </li>
+    <% end %>
+</ul>
+<% end %>
+<!-- @post.comments.build は@postインスタンスの子供のcommentインスタンスを作成する　-->
+<%= form_for [@post, @post.comments.build] do |f| %>
+<P>
+    <%= f.text_field :body %>
+</P>
+<p>
+    <%= f.submit class: "btn btn-success" %>
+</p>
+<% end %>
+
